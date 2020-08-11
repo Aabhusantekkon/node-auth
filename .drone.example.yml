@@ -1,28 +1,25 @@
 kind: pipeline
-type: docker
-name: default
-
+type: ssh
 workspace:
     path: /myproject
-
-
+server:
+    host:
+      from_secret: host
+    user:
+      from_secret: username
+    ssh_key:
+      from_secret: ssh_key
 steps:
-  - name: ssh commands
-    image: appleboy/drone-ssh
-    settings:
-      host:
-        from_secret: host
-      username:
-        from_secret: username
-      port: 22
-      key:
-        from_secret: ssh_key
-      script:
+    - name: install node and dependencies
+      commands:
         - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
         - nvm install v12.18.3 -y
         - npm install 
         - npm install pm2 -g -y
         - pm2 start server.js
+
+    - name: install nginx and reverse proxy
+      commands:
         - apt install nginx -y
         - mv /myproject/nginx_conf/default /etc/nginx/sites-enabled/
         - service nginx restart
