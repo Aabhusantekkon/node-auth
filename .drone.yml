@@ -2,11 +2,32 @@ kind: pipeline
 type: docker
 name: default
 
-workspace:
-    path: /myproject
+# workspace:
+#     path: /myproject
 
 
 steps:
+  - name: scp files
+    image: appleboy/drone-scp
+    settings:
+      host:
+        from_secret: host
+      user: 
+        from_secret: username
+      key:
+       from_secret: ssh_key
+      port: 22
+      command_timeout: 2m
+      target: /myproject
+      source:
+        - /drone/src/**/*
+
+
+
+
+
+
+
   - name: ssh commands
     image: appleboy/drone-ssh
     settings:
@@ -18,11 +39,12 @@ steps:
       key:
         from_secret: ssh_key
       script:
-        - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
-        - nvm install v12.18.3 -y
+        - cd /myproject
+        # - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
+        # - nvm install v12.18.3 -y
         - npm install 
-        - npm install pm2 -g -y
+        # - npm install pm2 -g -y
         - pm2 start server.js
-        - apt install nginx -y
+        # - apt install nginx -y
         - mv /myproject/nginx_conf/default /etc/nginx/sites-enabled/
-        - service nginx restart
+        - sudo service nginx restart
