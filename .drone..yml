@@ -1,5 +1,6 @@
 kind: pipeline
 type: ssh
+name: Test-ssh-pipeline
 workspace:
     path: /myproject
 server:
@@ -12,7 +13,7 @@ server:
 steps:
     - name: install node and dependencies
       commands:
-        - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
+        - sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
         - nvm install v12.18.3 -y
         - npm install 
         - npm install pm2 -g -y
