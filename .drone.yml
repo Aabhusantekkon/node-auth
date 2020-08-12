@@ -16,7 +16,7 @@ steps:
         # - export NVM_DIR="$HOME/.nvm"
         # - nvm install v12.18.3 -y
       - mkdir /home/ubuntu/projects
-      - cp . /home/ubuntu/projects/
+      - cp . -r /home/ubuntu/projects/
       - cd /home/ubuntu/projects
       - npm install 
       - pm2 start server.js
