@@ -12,15 +12,15 @@ server:
 steps:
     - name: install node and dependencies
       commands:
-        - sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
-        - export NVM_DIR="$HOME/.nvm"
-        - nvm install v12.18.3 -y
+        # - sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
+        # - export NVM_DIR="$HOME/.nvm"
+        # - nvm install v12.18.3 -y
         - npm install 
-        - npm install pm2 -g -y
+        # - npm install pm2 -g -y
         - pm2 start server.js
 
     - name: install nginx and reverse proxy
       commands:
-        - sudo apt install nginx -y
+        #- sudo apt install nginx -y
         - mv /tmp/drone-${RANDOM}/drone/src/nginx_conf/default /etc/nginx/sites-enabled/
         - sudo service nginx restart
