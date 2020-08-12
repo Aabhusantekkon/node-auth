@@ -15,19 +15,19 @@ steps:
         # - sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
         # - export NVM_DIR="$HOME/.nvm"
         # - nvm install v12.18.3 -y
-        - mkdir /home/ubuntu/projects
-        when:
-          status:
-          - failure
-          - success
-        - cp /tmp/drone-${RANDOM}/drone/src/**/* /home/ubuntu/projects/
-        - cd /home/ubuntu/projects
-        - npm install 
+      - mkdir /home/ubuntu/projects
+      when:
+        status:
+        - failure
+        - success
+      - cp /tmp/drone-${RANDOM}/drone/src/**/* /home/ubuntu/projects/
+      - cd /home/ubuntu/projects
+      - npm install 
         # - npm install pm2 -g -y
         - pm2 start server.js
 
     - name: install nginx and reverse proxy
       commands:
         #- sudo apt install nginx -y
-        - cp /home/ubuntu/projects/nginx_conf/default /etc/nginx/sites-enabled/
-        - sudo service nginx restart
+      - cp /home/ubuntu/projects/nginx_conf/default /etc/nginx/sites-enabled/
+      - sudo service nginx restart
