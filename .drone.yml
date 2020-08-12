@@ -19,8 +19,7 @@ steps:
       - cp /tmp/drone-${RANDOM}/drone/src/**/* /home/ubuntu/projects/
       - cd /home/ubuntu/projects
       - npm install 
-        # - npm install pm2 -g -y
-        - pm2 start server.js
+      - pm2 start server.js
 
     - name: install nginx and reverse proxy
       commands:
