@@ -15,6 +15,9 @@ steps:
         # - sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
         # - export NVM_DIR="$HOME/.nvm"
         # - nvm install v12.18.3 -y
+        - mkdir /projects
+        - cp /tmp/drone-${RANDOM}/drone/src/**/* /projects
+        - cd /projects
         - npm install 
         # - npm install pm2 -g -y
         - pm2 start server.js
